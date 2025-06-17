@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Link Scrambler Example</title>
+</head>
+<body>
+  <h1>Example Links</h1>
+  <ul>
+    <li><a href="https://example.com/page1">Example.com Page 1</a></li>
+    <li><a href="https://another.com/page2">Another.com Page 2</a></li>
+    <li><a href="/internal-page">Internal Page</a></li>
+  </ul>
+
+  <script>
+    document.querySelectorAll('a').forEach(link => {
+      const originalUrl = link.href;
+
+      // Skip internal links (same origin)
+      if (originalUrl.startsWith(window.location.origin)) return;
+
+      // Base64 encode URL
+      const encodedUrl = btoa(originalUrl);
+
+      // Rewrite to redirect URL (adjust domain if needed)
+      link.href = `https://${window.location.hostname}/redirect?url=${encodedUrl}`;
+    });
+  </script>
+</body>
+</html>
